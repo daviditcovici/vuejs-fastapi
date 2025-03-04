@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from src.database.register import register_tortoise
+from src.database.config import TORTOISE_ORM
 
 app = FastAPI()
 app.add_middleware(
@@ -9,6 +11,8 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
+
+register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 
 
 @app.get("/")
