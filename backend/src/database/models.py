@@ -19,4 +19,4 @@ class Notes(models.Model):
     modified_at = fields.DatetimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title}, {self.author} at {self.created_at}"
+        return f"{self.title}, {self.author.id} at {self.created_at}"
