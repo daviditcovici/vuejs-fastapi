@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from tortoise import Tortoise
+
 from src.database.register import register_tortoise
 from src.database.config import TORTOISE_ORM
 
