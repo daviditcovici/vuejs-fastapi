@@ -1,5 +1,6 @@
 aerich==0.7.1
 asyncpg
 fastapi
-tortoise-orm
+tortoise
+tortoise-orm==0.19.2
 uvicorn
