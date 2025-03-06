@@ -1,6 +1,8 @@
 aerich==0.7.1
 asyncpg
+bcrypt
 fastapi
+passlib
 tortoise
 tortoise-orm==0.19.2
 uvicorn
