@@ -7,7 +7,7 @@ from src.database.models import Notes
 
 NoteInSchema = pydantic_model_creator(Notes, name='NoteIn', exclude=('author.id',), exclude_readonly=True)
 NoteOutSchema = pydantic_model_creator(Notes, name='NoteOut', exclude=(
-'modified_at', 'author.password', 'author.created_at', 'author.modified_at'))
+    'modified_at', 'author.password', 'author.created_at', 'author.modified_at'))
 
 
 class UpdateNote(BaseModel):

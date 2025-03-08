@@ -3,6 +3,7 @@ asyncpg
 bcrypt
 fastapi
 passlib
+python-jose
 tortoise
 tortoise-orm==0.19.2
 uvicorn

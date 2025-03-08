@@ -1,6 +1,5 @@
 from datetime import UTC, datetime, timedelta
 import os
-from typing import Optional
 
 from fastapi import Depends, HTTPException, Request
 from fastapi.security import OAuth2PasswordBearer
@@ -18,17 +17,13 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 class OAuth2PasswordBearerCookie(OAuth2PasswordBearer):
-    async def __call__(self, request: Request) -> Optional[str]:
+    async def __call__(self, request: Request):
         authorization = request.cookies.get('Authorization', '')
         scheme, param = get_authorization_scheme_param(authorization)
 
         if not authorization or scheme.lower() != 'bearer':
             if self.auto_error:
-                raise HTTPException(
-                    status_code=401,
-                    detail="Not authenticated",
-                    headers={'WWW-Authenticate': 'Bearer'},
-                )
+                raise HTTPException(status_code=401, detail="Not authenticated", headers={'WWW-Authenticate': 'Bearer'})
             return None
 
         return param
@@ -47,7 +42,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-async def read_current_user(token: str = Depends(security)) -> UserOutSchema:
+async def read_current_user(token = Depends(security)) -> UserOutSchema:
     credentials_exception = HTTPException(
         status_code=401,
         detail="Could not validate credentials",

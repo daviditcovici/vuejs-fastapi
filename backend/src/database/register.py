@@ -5,7 +5,7 @@ from tortoise import Tortoise
 
 def register_tortoise(
         app,
-        config: Optional[dict] = None,
+        config: dict = None,
         generate_schemas: bool = False,
 ) -> None:
     @app.on_event('startup')
