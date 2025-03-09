@@ -13,9 +13,14 @@ def get_password_hash(password):
     return pw_context.hash(password)
 
 
-async def validate_user(user: OAuth2PasswordRequestForm = Depends()) -> UserInternalSchema:
+async def validate_user(user: OAuth2PasswordRequestForm = Depends()):
+    conflicting_cred_exception = HTTPException(status_code=409, detail="Incorrect username or password")
+
     try:
         db_user = await UserInternalSchema.from_queryset_single(Users.get(username=user.username))
     except DoesNotExist:
-        raise HTTPException(status_code=409, detail="Incorrect username or password")
-    return db_user if pw_context.verify(user.password, db_user.password) else None
+        raise conflicting_cred_exception
+
+    if not pw_context.verify(user.password, db_user.password):
+        raise conflicting_cred_exception
+    return db_user

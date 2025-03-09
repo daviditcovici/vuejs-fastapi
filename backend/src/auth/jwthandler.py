@@ -29,10 +29,10 @@ class OAuth2PasswordBearerCookie(OAuth2PasswordBearer):
         return param
 
 
-security = OAuth2PasswordBearerCookie('/login')
+security = OAuth2PasswordBearerCookie('/sign-in')
 
 
-def create_access_token(data: dict, expires_delta: timedelta = None):
+def create_access_token(data, expires_delta: timedelta = None):
     to_encode = data.copy()
     expire = datetime.now(UTC) + expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 
@@ -42,7 +42,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-async def read_current_user(token = Depends(security)) -> UserOutSchema:
+async def read_current_user(token = Depends(security)):
     credentials_exception = HTTPException(
         status_code=401,
         detail="Could not validate credentials",

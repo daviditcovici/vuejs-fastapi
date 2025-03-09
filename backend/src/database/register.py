@@ -1,12 +1,10 @@
-from typing import Optional
-
 from tortoise import Tortoise
 
 
 def register_tortoise(
         app,
         config: dict = None,
-        generate_schemas: bool = False,
+        generate_schemas = False,
 ) -> None:
     @app.on_event('startup')
     async def init_orm():
