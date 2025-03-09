@@ -3,6 +3,7 @@ from passlib.context import CryptContext
 from tortoise.exceptions import DoesNotExist, IntegrityError
 
 from src.database.models import Users
+from src.schemas.token import Status
 from src.schemas.users import UserOutSchema
 
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -31,4 +32,4 @@ async def delete_user(user_id, current_user):
         raise forbidden_del_exception
     await Users.filter(id=user_id).delete()
 
-    return f"Deleted user {user_id}"
+    return Status(message=f"Deleted user {user_id}")

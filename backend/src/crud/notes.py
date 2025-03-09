@@ -3,6 +3,7 @@ from tortoise.exceptions import DoesNotExist
 
 from src.database.models import Notes
 from src.schemas.notes import NoteOutSchema
+from src.schemas.token import Status
 
 
 async def create_note(note, current_user):
@@ -45,4 +46,4 @@ async def delete_note(note_id, current_user):
         raise HTTPException(status_code=403, detail=f"Not authorized to delete note {note_id}")
     await Notes.filter(id=note_id).delete()
 
-    return f"Deleted note {note_id}"
+    return Status(message=f"Deleted note {note_id}")
