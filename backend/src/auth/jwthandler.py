@@ -51,18 +51,17 @@ async def read_current_user(token = Depends(security)):
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username = payload.get('sub')
-        if username is None:
-            raise credentials_exception
-        token_data = TokenData(username=username)
-        user = await UserOutSchema.from_queryset_single(Users.get(username=token_data.username))
     except JWTError:
         raise credentials_exception
-    except HTTPException:
+    username = payload.get('sub')
+    if username is None:
         raise credentials_exception
+    try:
+        token_data = TokenData(username=username)
+        user = await UserOutSchema.from_queryset_single(Users.get(username=token_data.username))
     except DoesNotExist:
         raise credentials_exception
-    except Exception:
+    except:
         raise credentials_exception
 
     return user

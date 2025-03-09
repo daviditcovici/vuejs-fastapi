@@ -31,8 +31,8 @@ async def update_note(note_id, note, current_user):
 
     if db_note.author.id != current_user.id:
         raise HTTPException(status_code=403, detail=f"Not authorized to update note {note_id}")
-    await Notes.filter(id=note_id).update(**note.dict(exclude_unset=True))
 
+    await Notes.filter(id=note_id).update(**note.dict(exclude_unset=True))
     return await NoteOutSchema.from_queryset_single(Notes.get(id=note_id))
 
 

@@ -13,15 +13,14 @@ from src.schemas.users import UserOutSchema
 
 router = APIRouter()
 
+@router.post(path='/sign-up', response_model=UserOutSchema)
+async def sign_up(user):
+    return await users_crud.create_user(user)
+
 
 @router.get(path='/users/whoami', response_model=UserOutSchema, dependencies=[Depends(read_current_user)])
 async def read_user_me(current_user=Depends(read_current_user)):
     return current_user
-
-
-@router.post(path='/sign-up', response_model=UserOutSchema)
-async def sign_up(user):
-    return await users_crud.create_user(user)
 
 
 @router.post('/sign-in')
