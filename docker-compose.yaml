@@ -29,7 +29,7 @@ services:
       - POSTGRES_PASSWORD=hello_fastapi
       - POSTGRES_DB=hello_fastapi_dev
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres:/var/lib/postgresql/data/
 
 volumes:
-  postgres_data:
+  postgres:

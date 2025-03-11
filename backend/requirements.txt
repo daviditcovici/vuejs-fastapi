@@ -5,6 +5,5 @@ fastapi
 passlib
 python-jose
 python-multipart
-tortoise
-tortoise-orm==0.19.2
+tortoise-orm
 uvicorn
